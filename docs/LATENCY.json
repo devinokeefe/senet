@@ -1,0 +1,240 @@
+{
+  "decisions": 5000,
+  "positions": 4876,
+  "open_seconds": 0.002476200010278262,
+  "operations": {
+    "call overhead": {
+      "calls": 5000,
+      "median_us": 1.0999938240274787,
+      "p95_us": 1.200009137392044,
+      "max_us": 40.09999975096434,
+      "per_second": 930647.9085189325
+    },
+    "database lookup, first pass": {
+      "calls": 4876,
+      "median_us": 4.299989086575806,
+      "p95_us": 5.299996701069176,
+      "max_us": 48.10000245925039,
+      "per_second": 247453.65944648505
+    },
+    "database lookup, second pass": {
+      "calls": 4876,
+      "median_us": 1.8999999156221747,
+      "p95_us": 2.1000014385208488,
+      "max_us": 78722.09999186452,
+      "per_second": 55179.968662672014
+    },
+    "database lookups in one call (Engine.values)": {
+      "calls": 4876,
+      "per_second": 1302246.079406649
+    },
+    "network evaluation": {
+      "calls": 4876,
+      "median_us": 10.000003385357559,
+      "p95_us": 12.200005585327744,
+      "max_us": 72713.10000214726,
+      "per_second": 38574.17923566367
+    },
+    "move choice: perfect": {
+      "calls": 5000,
+      "median_us": 6.300004315562546,
+      "p95_us": 11.199997970834374,
+      "max_us": 89865.00000173692,
+      "per_second": 40253.5329973399
+    },
+    "move choice: net": {
+      "calls": 5000,
+      "median_us": 24.499997380189598,
+      "p95_us": 39.799998194212094,
+      "max_us": 98528.7000075914,
+      "per_second": 10266.002392518083
+    },
+    "move choice: net:1": {
+      "calls": 5000,
+      "median_us": 316.65000278735533,
+      "p95_us": 664.3100081419107,
+      "max_us": 112974.40000635106,
+      "per_second": 820.6051726478212
+    },
+    "move choice: greedy": {
+      "calls": 5000,
+      "median_us": 3.9000005926936865,
+      "p95_us": 4.49999060947448,
+      "max_us": 79004.39998775255,
+      "per_second": 49542.622419865766
+    },
+    "move choice: expectimax:1": {
+      "calls": 5000,
+      "median_us": 11.500000255182385,
+      "p95_us": 20.60001133941114,
+      "max_us": 96269.50000529177,
+      "per_second": 20021.679467123777
+    },
+    "move choice: expectimax:2": {
+      "calls": 5000,
+      "median_us": 95.19999730400741,
+      "p95_us": 266.40500509529375,
+      "max_us": 100903.80000474397,
+      "per_second": 2459.796471666244
+    }
+  },
+  "database_lookups_by_pieces": {
+    "first_pass": {
+      "3": {
+        "calls": 70,
+        "median_us": 1.7999991541728377,
+        "p95_us": 3.3100026485044505,
+        "max_us": 5.299996701069176,
+        "per_second": 513572.76381526486
+      },
+      "4": {
+        "calls": 159,
+        "median_us": 1.7999991541728377,
+        "p95_us": 3.4999990020878613,
+        "max_us": 4.49999060947448,
+        "per_second": 449787.9475049099
+      },
+      "5": {
+        "calls": 227,
+        "median_us": 3.0999945010989904,
+        "p95_us": 3.66999884136021,
+        "max_us": 4.6000059228390455,
+        "per_second": 366898.3719510359
+      },
+      "6": {
+        "calls": 274,
+        "median_us": 3.4000040614046156,
+        "p95_us": 4.4000043999403715,
+        "max_us": 8.90000956133008,
+        "per_second": 299420.8671830098
+      },
+      "7": {
+        "calls": 301,
+        "median_us": 3.5999983083456755,
+        "p95_us": 4.7000066842883825,
+        "max_us": 7.099995855242014,
+        "per_second": 267341.6886265141
+      },
+      "8": {
+        "calls": 480,
+        "median_us": 4.1000021155923605,
+        "p95_us": 6.300004315562546,
+        "max_us": 9.900002623908222,
+        "per_second": 242730.71747284385
+      },
+      "9": {
+        "calls": 866,
+        "median_us": 4.4000043999403715,
+        "p95_us": 6.474994734162465,
+        "max_us": 10.500007192604244,
+        "per_second": 225280.3205914908
+      },
+      "10": {
+        "calls": 2499,
+        "median_us": 4.399989848025143,
+        "p95_us": 5.399997462518513,
+        "max_us": 48.10000245925039,
+        "per_second": 232820.30117874363
+      }
+    },
+    "second_pass": {
+      "3": {
+        "calls": 70,
+        "median_us": 1.6999983927235007,
+        "p95_us": 1.8999999156221747,
+        "max_us": 19.800005247816443,
+        "per_second": 507982.84599915583
+      },
+      "4": {
+        "calls": 159,
+        "median_us": 1.7999991541728377,
+        "p95_us": 1.8999999156221747,
+        "max_us": 6.999995093792677,
+        "per_second": 560056.686433363
+      },
+      "5": {
+        "calls": 227,
+        "median_us": 1.7999991541728377,
+        "p95_us": 2.0000006770715117,
+        "max_us": 2.4999899324029684,
+        "per_second": 554199.212273574
+      },
+      "6": {
+        "calls": 274,
+        "median_us": 1.7999991541728377,
+        "p95_us": 2.0000006770715117,
+        "max_us": 2.5000044843181968,
+        "per_second": 546360.8789316718
+      },
+      "7": {
+        "calls": 301,
+        "median_us": 1.7999991541728377,
+        "p95_us": 2.0000006770715117,
+        "max_us": 38.09999907389283,
+        "per_second": 509737.4981809737
+      },
+      "8": {
+        "calls": 480,
+        "median_us": 1.8999999156221747,
+        "p95_us": 2.1000014385208488,
+        "max_us": 67.09998706355691,
+        "per_second": 468658.47228842595
+      },
+      "9": {
+        "calls": 866,
+        "median_us": 1.8999999156221747,
+        "p95_us": 2.1000014385208488,
+        "max_us": 78722.09999186452,
+        "per_second": 10764.490116916952
+      },
+      "10": {
+        "calls": 2499,
+        "median_us": 1.8999999156221747,
+        "p95_us": 2.1000014385208488,
+        "max_us": 88.79999222699553,
+        "per_second": 502999.05395643867
+      }
+    }
+  },
+  "memory": {
+    "before_engine": {
+      "peak_private_bytes": 802099200,
+      "peak_resident_bytes": 49078272
+    },
+    "peak": {
+      "peak_private_bytes": 872980480,
+      "peak_resident_bytes": 101662720
+    }
+  },
+  "machine_cpu_busy": 1.0,
+  "provenance": {
+    "generated_utc": "2026-10-04T20:28:43+00:00",
+    "command": "python -m senet.latency --db db/kendall5 --net models/senet_net.bin",
+    "commit": "9f8ac2aa17fb5ef6304e19aded162dc804f41042",
+    "machine": {
+      "os": "Windows-11-10.0.26200-SP0",
+      "cpu": "Intel(R) Core(TM) i9-14900K",
+      "logical_cpus": 32,
+      "memory_bytes": 68414648320,
+      "python": "3.12.10"
+    },
+    "engine": {
+      "cpu_features": [],
+      "optimized": true,
+      "target": "x86_64-windows",
+      "version": "0.1.0"
+    },
+    "database": {
+      "path": "db/kendall5",
+      "manifest_sha256": "251bbefe891c6475686360eb8613623ef7b3f8f4ceba2dc40d958f849533ee2f"
+    },
+    "network": {
+      "path": "models/senet_net.bin",
+      "sha256": "60d89d81bce0835f02f0f1fed7ba057fae9a26b6cbe862259e8b62d95b9d0a5e"
+    },
+    "settings": {
+      "n": 5000,
+      "seed": 31
+    }
+  }
+}

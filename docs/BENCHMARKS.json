@@ -1,0 +1,210 @@
+{
+  "quality": {
+    "random": {
+      "bot": "random",
+      "games": 20000,
+      "decisions": 1105876,
+      "errors": 657874,
+      "avg_loss_per_decision": 0.005730022690614193,
+      "avg_loss_per_game": 0.31683472865028306,
+      "max_loss": 0.4980357587337494,
+      "seconds": 0.876876499998616
+    },
+    "greedy": {
+      "bot": "greedy",
+      "games": 20000,
+      "decisions": 1061356,
+      "errors": 494864,
+      "avg_loss_per_decision": 0.002854385194331508,
+      "avg_loss_per_game": 0.1514759426157456,
+      "max_loss": 0.3039032816886902,
+      "seconds": 0.4961321000009775
+    },
+    "expectimax:1": {
+      "bot": "expectimax:1",
+      "games": 20000,
+      "decisions": 1064616,
+      "errors": 456121,
+      "avg_loss_per_decision": 0.0020595959304462604,
+      "avg_loss_per_game": 0.10963393905439879,
+      "max_loss": 0.19443488121032715,
+      "seconds": 1.1435305000049993
+    },
+    "expectimax:2": {
+      "bot": "expectimax:2",
+      "games": 20000,
+      "decisions": 1063777,
+      "errors": 423952,
+      "avg_loss_per_decision": 0.0016813742793396857,
+      "avg_loss_per_game": 0.08943036433765665,
+      "max_loss": 0.19289898872375488,
+      "seconds": 6.414204999993672
+    },
+    "expectimax:3": {
+      "bot": "expectimax:3",
+      "games": 5000,
+      "decisions": 265468,
+      "errors": 102485,
+      "avg_loss_per_decision": 0.001500979849822916,
+      "avg_loss_per_game": 0.07969242375455797,
+      "max_loss": 0.15341214835643768,
+      "seconds": 16.660131299999193
+    },
+    "net": {
+      "bot": "net",
+      "games": 20000,
+      "decisions": 1308918,
+      "errors": 168767,
+      "avg_loss_per_decision": 6.705860880810492e-05,
+      "avg_loss_per_game": 0.004388711006194353,
+      "max_loss": 0.013238459825515747,
+      "seconds": 2.947241000001668
+    },
+    "net:1": {
+      "bot": "net:1",
+      "games": 20000,
+      "decisions": 1316648,
+      "errors": 105556,
+      "avg_loss_per_decision": 2.4212897534621936e-05,
+      "avg_loss_per_game": 0.0015939931556582451,
+      "max_loss": 0.013599216938018799,
+      "seconds": 30.496770000012475
+    },
+    "perfect": {
+      "bot": "perfect",
+      "games": 20000,
+      "decisions": 1316196,
+      "errors": 0,
+      "avg_loss_per_decision": 0.0,
+      "avg_loss_per_game": 0.0,
+      "max_loss": 0.0,
+      "seconds": 0.6980706000031205
+    }
+  },
+  "matches": {
+    "perfect vs random": {
+      "bot_a": "perfect",
+      "bot_b": "random",
+      "games": 100000,
+      "a_wins": 81429,
+      "a_white_games": 50000,
+      "a_white_wins": 40670,
+      "avg_throws": 166.03528,
+      "a_win_rate": 0.81429,
+      "ci95": 0.0023932601146695962,
+      "seconds": 0.6760523999982979
+    },
+    "perfect vs greedy": {
+      "bot_a": "perfect",
+      "bot_b": "greedy",
+      "games": 100000,
+      "a_wins": 65111,
+      "a_white_games": 50000,
+      "a_white_wins": 32753,
+      "avg_throws": 170.25729,
+      "a_win_rate": 0.65111,
+      "ci95": 0.002914052414305938,
+      "seconds": 0.9149859000026481
+    },
+    "perfect vs expectimax:1": {
+      "bot_a": "perfect",
+      "bot_b": "expectimax:1",
+      "games": 100000,
+      "a_wins": 61003,
+      "a_white_games": 50000,
+      "a_white_wins": 30632,
+      "avg_throws": 172.50789,
+      "a_win_rate": 0.61003,
+      "ci95": 0.0029927182237722526,
+      "seconds": 3.8572546999930637
+    },
+    "perfect vs expectimax:2": {
+      "bot_a": "perfect",
+      "bot_b": "expectimax:2",
+      "games": 100000,
+      "a_wins": 58958,
+      "a_white_games": 50000,
+      "a_white_wins": 29735,
+      "avg_throws": 173.93462,
+      "a_win_rate": 0.58958,
+      "ci95": 0.0030162074623911934,
+      "seconds": 33.67676589998882
+    },
+    "perfect vs expectimax:3": {
+      "bot_a": "perfect",
+      "bot_b": "expectimax:3",
+      "games": 25000,
+      "a_wins": 14510,
+      "a_white_games": 12500,
+      "a_white_wins": 7275,
+      "avg_throws": 174.04896,
+      "a_win_rate": 0.5804,
+      "ci95": 0.006009380211599378,
+      "seconds": 89.61951849999605
+    },
+    "perfect vs net": {
+      "bot_a": "perfect",
+      "bot_b": "net",
+      "games": 100000,
+      "a_wins": 50493,
+      "a_white_games": 50000,
+      "a_white_wins": 25541,
+      "avg_throws": 197.35566,
+      "a_win_rate": 0.50493,
+      "ci95": 0.003060778746210491,
+      "seconds": 13.362223300006008
+    },
+    "perfect vs net:1": {
+      "bot_a": "perfect",
+      "bot_b": "net:1",
+      "games": 100000,
+      "a_wins": 50067,
+      "a_white_games": 50000,
+      "a_white_wins": 25247,
+      "avg_throws": 197.38647,
+      "a_win_rate": 0.50067,
+      "ci95": 0.003050140045506296,
+      "seconds": 125.26613289999659
+    }
+  },
+  "start": {
+    "white_win_prob": 0.5025043487548828
+  },
+  "provenance": {
+    "generated_utc": "2026-10-04T20:29:07+00:00",
+    "command": "python -m senet.bench --db db/kendall5 --net models/senet_net.bin",
+    "commit": "9f8ac2aa17fb5ef6304e19aded162dc804f41042",
+    "machine": {
+      "os": "Windows-11-10.0.26200-SP0",
+      "cpu": "Intel(R) Core(TM) i9-14900K",
+      "logical_cpus": 32,
+      "memory_bytes": 68414648320,
+      "python": "3.12.10"
+    },
+    "engine": {
+      "cpu_features": [],
+      "optimized": true,
+      "target": "x86_64-windows",
+      "version": "0.1.0"
+    },
+    "database": {
+      "path": "db/kendall5",
+      "manifest_sha256": "251bbefe891c6475686360eb8613623ef7b3f8f4ceba2dc40d958f849533ee2f"
+    },
+    "network": {
+      "path": "models/senet_net.bin",
+      "sha256": "60d89d81bce0835f02f0f1fed7ba057fae9a26b6cbe862259e8b62d95b9d0a5e"
+    },
+    "settings": {
+      "quality_games": 20000,
+      "pairs": 50000,
+      "seeds": {
+        "quality": 11,
+        "matches": 23
+      },
+      "divided_for_slow_bots": {
+        "expectimax:3": 4
+      }
+    }
+  }
+}

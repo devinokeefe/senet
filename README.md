@@ -46,9 +46,9 @@ the wins, with its 95% interval.
 | Player | Win chance given away per game | Perfect player's win rate against it |
 |---|---:|---:|
 | Random mover | 31.7% | 81.43% ± 0.24% |
-| Greedy heuristic | 16.7% | 66.85% ± 0.29% |
-| Heuristic + 3-throw expectimax | 8.0% | 58.03% ± 0.61% |
-| Neural network | 0.44% | 50.50% ± 0.31% |
+| Greedy heuristic | 15.1% | 65.11% ± 0.29% |
+| Heuristic + 3-throw expectimax | 8.0% | 58.04% ± 0.60% |
+| Neural network | 0.44% | 50.49% ± 0.31% |
 | **Neural network + 1-throw search** | **0.16%** | **50.07% ± 0.31%** |
 
 Full tables are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). The best opening move for
