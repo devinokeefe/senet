@@ -1,0 +1,7 @@
+# The default build runs on any CPU of its architecture (for x86-64, the 2003 baseline).
+# To let the compiler use all of this machine's instructions (with BMI2, position_of
+# deposits bits with pdep: crates/senet-core/src/index.rs), add the settings in native.toml:
+#
+#     cargo build --release --config .cargo/native.toml
+#
+# `senet --version` and `senet.build_info()` say which CPU features a build uses.

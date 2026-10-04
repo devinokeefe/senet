@@ -1,0 +1,15 @@
+209,476,737 records on cuda
+model 72-512-256-128-1, 201,729 parameters
+epoch  1: val MAE 0.00154  RMSE 0.00209  max 0.0558  [49s]
+epoch  2: val MAE 0.00088  RMSE 0.00129  max 0.0453  [98s]
+epoch  3: val MAE 0.00077  RMSE 0.00113  max 0.0364  [148s]
+epoch  4: val MAE 0.00069  RMSE 0.00104  max 0.0267  [198s]
+epoch  5: val MAE 0.00067  RMSE 0.00099  max 0.0269  [248s]
+epoch  6: val MAE 0.00066  RMSE 0.00097  max 0.0277  [466s]
+epoch  7: val MAE 0.00064  RMSE 0.00095  max 0.0228  [727s]
+epoch  8: val MAE 0.00061  RMSE 0.00091  max 0.0215  [987s]
+epoch  9: val MAE 0.00058  RMSE 0.00089  max 0.0238  [1660s]
+epoch 10: val MAE 0.00057  RMSE 0.00088  max 0.0213  [1709s]
+epoch 11: val MAE 0.00056  RMSE 0.00087  max 0.0212  [1773s]
+epoch 12: val MAE 0.00055  RMSE 0.00087  max 0.0214  [1838s]
+saved models\senet_net.bin / .json / .pt  (val MAE 0.00055)

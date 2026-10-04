@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+type: software
+title: "Senet: the Modern Kendall rules with 5 pieces, solved"
+abstract: >-
+  A value-iteration solver for Senet under the Modern Kendall rules with 5 pieces per
+  side, the perfect-play engine that reads its database of 8,560,690,670 positions, and a
+  small neural network distilled from that database.
+authors:
+  - family-names: "O'Keefe"
+    given-names: "Devin"
+version: 0.1.0
+date-released: 2026-10-04
+license: MIT
+repository-code: "https://github.com/devinokeefe/senet"
+keywords:
+  - senet
+  - solved game
+  - value iteration
+  - stochastic game

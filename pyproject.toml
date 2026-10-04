@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "senet-ai"
+version = "0.1.0"
+description = "Senet (Modern Kendall rules, 5 pieces) solved: perfect-play engine, Python API, distilled network"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Devin O'Keefe" }]
+keywords = ["senet", "board game", "solved game", "game AI", "neural network"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Rust",
+    "Topic :: Games/Entertainment :: Board Games",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+# python/senet/__init__.py evaluates `Sequence[int] | int` at import time.
+requires-python = ">=3.10"
+# numpy 1.22 for runtime subscripts such as np.integer[Any] (python/senet/__init__.py).
+dependencies = ["numpy>=1.22"]
+
+[project.optional-dependencies]
+# numpy 2 for np.bitwise_count (senet_train.distill).
+train = ["torch", "numpy>=2"]
+dev = ["pytest", "ruff", "mypy"]
+
+[project.urls]
+Homepage = "https://github.com/devinokeefe/senet"
+Repository = "https://github.com/devinokeefe/senet"
+Issues = "https://github.com/devinokeefe/senet/issues"
+
+[tool.setuptools]
+package-dir = { "" = "python" }
+packages = ["senet", "senet_ref", "senet_train"]
+
+[tool.setuptools.package-data]
+senet = ["py.typed"]
+
+[tool.pytest.ini_options]
+pythonpath = ["python"]
+testpaths = ["python/tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["python"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+# SIM300 treats ALL_CAPS module constants as literals and asks for `{1, 4, 5} == EXTRA_THROW`.
+ignore = ["SIM300"]
+# The reports write ranges with an en dash: 2.3–2.7%.
+allowed-confusables = ["–"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["python", "tools"]
+mypy_path = "python"
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unused_configs = true
+
+# PyTorch is an optional extra (`train`); type-check senet_train without it too.
+[[tool.mypy.overrides]]
+module = ["torch", "torch.*"]
+ignore_missing_imports = true

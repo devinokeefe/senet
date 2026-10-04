@@ -1,0 +1,10 @@
+# The versions of the Python tools and libraries that CI checks with (pip install -c), so
+# that a new release of one cannot fail CI without a change here. pyproject.toml keeps
+# ranges; raise these on purpose, with whatever the new versions require.
+mypy==1.19.1
+pytest==9.0.2
+ruff==0.15.1
+# numpy 2 everywhere, as senet_train needs (the train extra); 2.3 and later need Python 3.11.
+numpy==2.2.6; python_version < "3.11"
+numpy==2.4.6; python_version >= "3.11"
+torch==2.11.0

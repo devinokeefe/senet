@@ -1,0 +1,20 @@
+[workspace]
+resolver = "3"
+members = ["crates/senet-core", "crates/senet-cli", "crates/senet-ffi"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+authors = ["Devin O'Keefe"]
+repository = "https://github.com/devinokeefe/senet"
+# The crates are built from this repository, not published to crates.io.
+publish = false
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+
+[profile.dev]
+opt-level = 1

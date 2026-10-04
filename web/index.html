@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Senet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="ankh" aria-hidden="true">☥</span>
+      <div>
+        <h1>Senet</h1>
+        <p class="tagline" id="tagline">The game of passing</p>
+      </div>
+    </div>
+    <div class="engine" id="engine-status">connecting…</div>
+  </header>
+
+  <main class="layout">
+    <section>
+      <div class="offrow" id="off-black"></div>
+      <div class="board" id="board" role="group" aria-label="Senet board"></div>
+      <div class="offrow" id="off-white"></div>
+
+      <div class="probbar" id="probbar" role="meter" aria-label="White's chance of winning"
+           aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <div class="probfill" id="prob-white"></div>
+        <span class="problabel left" id="prob-white-label">White —</span>
+        <span class="problabel right" id="prob-black-label">— Black</span>
+      </div>
+      <p class="probsource" id="prob-source"></p>
+    </section>
+
+    <aside class="panel" id="panel">
+      <div class="card">
+        <div class="turnline">
+          <span class="dot" id="turn-dot"></span>
+          <span id="turn-text" aria-live="polite">White to throw</span>
+        </div>
+        <div class="sticks" id="sticks" aria-hidden="true">
+          <div class="stick"></div><div class="stick"></div><div class="stick"></div><div class="stick"></div>
+        </div>
+        <div class="throwvalue" id="throw-value" aria-live="polite">&nbsp;</div>
+        <button class="primary" id="btn-throw">Throw sticks <kbd>Space</kbd></button>
+        <p class="message" id="message" aria-live="polite"></p>
+      </div>
+
+      <div class="card">
+        <h2>Players</h2>
+        <label class="row">White
+          <select id="sel-white">
+            <option value="human" selected>You</option>
+          </select>
+        </label>
+        <label class="row">Black
+          <select id="sel-black">
+            <option value="human">You</option>
+          </select>
+        </label>
+        <label class="row check"><input type="checkbox" id="chk-hints"> Show move win chances (hints)</label>
+        <label class="row check"><input type="checkbox" id="chk-auto" checked> Auto-play forced moves</label>
+        <label class="row">AI speed
+          <input type="range" id="rng-speed" min="100" max="1500" step="100" value="1000">
+        </label>
+        <div class="buttons">
+          <button id="btn-new">New game</button>
+          <button id="btn-undo">Undo</button>
+        </div>
+      </div>
+
+      <div class="card" id="hint-card" hidden>
+        <h2>Moves for this throw</h2>
+        <ol class="movelist" id="move-list"></ol>
+      </div>
+
+      <div class="card">
+        <h2>Game record</h2>
+        <ol class="log" id="log" aria-live="polite"></ol>
+      </div>
+
+      <details class="card rules">
+        <summary>Rules (Modern Kendall, 5 pieces)</summary>
+        <ul>
+          <li>Throw 4 sticks: light sides up = 1–4, none = 5. Throws <b>1, 4, 5</b> earn another throw.</li>
+          <li>Move one piece forward exactly the throw. Land on a lone enemy to <b>swap</b> places.</li>
+          <li>Two friendly pieces side by side protect each other; <b>three in a row</b> cannot be passed.</li>
+          <li>No forward move? You must move backward. No move at all? The turn passes, even after a 1, 4 or 5.</li>
+          <li>Every piece must stop exactly on <b>26</b> (Beauty). Landing on <b>27</b> (Water) sends the piece back to 15 — or, if 15 is taken, to the highest empty square below it.</li>
+          <li>Bear off from 26 with a 5, from 28 with 3, 29 with 2, 30 with 1; pieces on 28–30 cannot move otherwise. First to bear off all five wins.</li>
+        </ul>
+      </details>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

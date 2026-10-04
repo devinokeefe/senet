@@ -1,0 +1,216 @@
+# The checks that need no solved database (34 GB): those run only in the release gate,
+# `python tools/check_all.py --strict` (CONTRIBUTING.md).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to a pull request cancels the run for the one before; runs on main all finish.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  CARGO_TERM_COLOR: always
+  # The newest Rust checked, which formats and lints the code. It is pinned, so that a new
+  # release's lints cannot fail CI without a change here; the rust job's matrix repeats it.
+  RUST: "1.99.0"
+  # The versions of the Python tools and libraries checked with.
+  CONSTRAINTS: .github/constraints.txt
+
+jobs:
+  rust:
+    name: Rust ${{ matrix.rust }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        # The oldest supported (Cargo.toml: rust-version), with the committed Cargo.lock,
+        # and the newest checked (RUST above).
+        rust: ["1.85", "1.99.0"]
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Rust ${{ matrix.rust }}
+        run: |
+          rustup toolchain install ${{ matrix.rust }} --profile minimal --component rustfmt,clippy --no-self-update
+          rustup default ${{ matrix.rust }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Formatting and lints
+        if: matrix.rust != '1.85'
+        run: |
+          cargo fmt --all -- --check
+          cargo clippy --locked --release --workspace --all-targets -- -D warnings
+      - name: Tests (debug build, with overflow checks)
+        run: cargo test --locked --workspace
+      - name: Tests (release build)
+        run: cargo test --locked --release --workspace
+      - name: Tests (senet-core built for the runner's CPU)
+        run: cargo test --locked -p senet-core --config .cargo/native.toml --target-dir target-native
+
+  # The engine (the senet program and library) built once per OS for the jobs that use it.
+  engine:
+    name: Engine, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Rust
+        run: |
+          rustup toolchain install "$RUST" --profile minimal --no-self-update
+          rustup default "$RUST"
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build --locked --release --workspace
+      - uses: actions/upload-artifact@v7
+        with:
+          name: engine-${{ runner.os }}
+          # Those of these files that the OS's build makes, at the artifact's root.
+          path: |
+            target/release/senet
+            target/release/senet.exe
+            target/release/libsenet_ffi.so
+            target/release/libsenet_ffi.dylib
+            target/release/senet_ffi.dll
+          if-no-files-found: error
+          retention-days: 1
+
+  python:
+    name: Python ${{ matrix.python }}, ${{ matrix.os }}
+    needs: engine
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.10", "3.13"] # the oldest supported (pyproject.toml: requires-python) and the newest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/constraints.txt
+      - name: Get the engine
+        uses: actions/download-artifact@v8
+        with:
+          name: engine-${{ runner.os }}
+          path: target/release
+      - name: Make the senet program executable again (artifacts drop the mode)
+        if: runner.os != 'Windows'
+        run: chmod +x target/release/senet
+      - name: Install the package
+        run: python -m pip install -e ".[dev]" -c "$CONSTRAINTS"
+      - run: python -m pytest
+
+  # The same on every OS and Python version: run once.
+  python-lint:
+    name: Python formatting, lints and types
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/constraints.txt
+      - name: Install the package
+        run: python -m pip install -e ".[dev]" -c "$CONSTRAINTS"
+      - run: python -m ruff format --check python tools
+      - run: python -m ruff check python tools
+      - run: python -m mypy
+
+  # What check_all adds to the jobs above (the Rust and Python checks are left to them),
+  # failing if Node.js, PyTorch or the network is missing: the JavaScript syntax check, the
+  # cross-language parity checks, the web app and portable page, and the network's forward
+  # pass and strength.
+  check-all:
+    name: check_all (Node.js, PyTorch, network)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/constraints.txt
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install Rust
+        run: |
+          rustup toolchain install "$RUST" --profile minimal --no-self-update
+          rustup default "$RUST"
+      - uses: Swatinem/rust-cache@v2
+      - name: Install PyTorch (CPU) and the package, with its training extra
+        run: |
+          python -m pip install torch -c "$CONSTRAINTS" --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e ".[dev,train]" -c "$CONSTRAINTS"
+      - name: Run check_all
+        run: python tools/check_all.py --skip rust python --require node torch network --json checks.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: check-all-results
+          path: checks.json
+
+  # An installed (not editable) package is in no source checkout, so it finds the engine
+  # library only through SENET_FFI, and says so without it.
+  install:
+    name: Installed package
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/constraints.txt
+      - name: Get the engine
+        uses: actions/download-artifact@v8
+        with:
+          name: engine-${{ runner.os }}
+          path: ${{ runner.temp }}/engine
+      - name: Install the package
+        run: python -m pip install . -c "$CONSTRAINTS"
+      - name: Import it outside the checkout
+        working-directory: ${{ runner.temp }}
+        run: |
+          if python -c "import senet" 2> error.txt; then
+            echo "imported without the engine library"
+            exit 1
+          fi
+          grep "set SENET_FFI" error.txt
+          SENET_FFI="$RUNNER_TEMP/engine/libsenet_ffi.so" python -c "
+          import senet
+          me, opp = senet.start()
+          assert len(senet.legal_moves(me, opp, 2)) == 1
+          print(senet.build_info())
+          "

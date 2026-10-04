@@ -1,0 +1,98 @@
+{
+  "manifest": 1,
+  "kind": "network",
+  "format": "snn1/1",
+  "rules": "kendall5",
+  "created_utc": "2026-10-04T16:38:42+00:00",
+  "created_by": {
+    "command": "python -m senet_train.distill --data runs/train.bin --evaluate models/senet_net.bin --record --note 'Trained on 2026-10-02 by an earlier version of this script; models/training/distill.log is its log. The log shows the architecture (72-512-256-128-1) and 12 epochs; it does not show the other settings, which were that version'\"'\"'s defaults unless overridden: batch 16384, lr 2e-3, wd 1e-5, val_frac 0.02, seed 0. That version split the records as this one does, so the split here is the training split if val_frac and seed were the defaults.' --note 'The training log'\"'\"'s final errors, which this evaluation reproduces: validation MAE 0.00055, RMSE 0.00087, max 0.0214. Its 12 epochs took 1,838 s on a shared machine: 49 to 65 s each for eight of them, 218 to 673 s for epochs 6 to 9.' --note 'The training data, runs/train.bin, is not in the repository. models/training/train.manifest.json is its manifest, the one that inputs.training_data names: `senet gen-data` with the settings recorded there makes the file byte for byte (checked by SHA-256 against the file the network was trained on).'",
+    "commit": null,
+    "engine": {
+      "cpu_features": [],
+      "optimized": true,
+      "target": "x86_64-windows",
+      "version": "0.1.0"
+    },
+    "environment": {
+      "python": "3.12.10",
+      "numpy": "2.4.6",
+      "torch": "2.11.0+cu128",
+      "device": "NVIDIA GeForce RTX 4090"
+    }
+  },
+  "settings": null,
+  "inputs": {
+    "training_data": [
+      {
+        "path": "runs/train.bin",
+        "manifest_sha256": "c0e632bb4b138371e53326ac561b770cb709cdaa5d80f21c2da674bb01d99ecb"
+      }
+    ]
+  },
+  "contents": {
+    "architecture": [
+      72,
+      512,
+      256,
+      128,
+      1
+    ],
+    "parameters": 201729,
+    "features": {
+      "name": "senet-features/1",
+      "layout": [
+        "0-28: 1 if the mover has a piece on square 1-26, 28-30 (a column each, in order)",
+        "29-57: the same for the opponent",
+        "58-63: one-hot number of the mover's pieces borne off, 0-5",
+        "64-69: the same for the opponent",
+        "70: the mover's remaining distance, the sum of 31 - s over its squares s, divided by 100",
+        "71: the same for the opponent"
+      ]
+    },
+    "split": {
+      "records": 209476737,
+      "data_sha256": [
+        "fe166cfe305e3f8f0f3e20bd34636d57988530679846c9d305ed6e0f8f9b0415"
+      ],
+      "validation_records": 4189534,
+      "unseen_records": 1118157,
+      "distinct_positions": {
+        "training": 71171383,
+        "validation": 2707289,
+        "unseen": 1115003,
+        "all": 72286386
+      },
+      "val_frac": 0.02,
+      "seed": 0,
+      "numpy": "2.4.6",
+      "definition": "validation records: the first val_frac of the records in the order of numpy.random.default_rng(seed).permutation (of the NumPy version given); training records: the others; unseen positions: the validation records whose (me, opp) occurs in no training record, which are positions rare in the data; distinct_positions: the number of different (me, opp) among the training records, the validation records, the unseen ones and all the records"
+    },
+    "errors": {
+      "validation records": {
+        "records": 4189534,
+        "mae": 0.0005484461435116827,
+        "rmse": 0.0008656693971715868,
+        "max": 0.021378695964813232
+      },
+      "unseen positions": {
+        "records": 1118157,
+        "mae": 0.0008085050503723323,
+        "rmse": 0.0011425064876675606,
+        "max": 0.021378695964813232
+      }
+    }
+  },
+  "notes": [
+    "Recorded after the fact by `distill --evaluate --record`: the errors are measured now, on the split of the seed and val_frac given here; the training settings were not recorded.",
+    "Trained on 2026-10-02 by an earlier version of this script; models/training/distill.log is its log. The log shows the architecture (72-512-256-128-1) and 12 epochs; it does not show the other settings, which were that version's defaults unless overridden: batch 16384, lr 2e-3, wd 1e-5, val_frac 0.02, seed 0. That version split the records as this one does, so the split here is the training split if val_frac and seed were the defaults.",
+    "The training log's final errors, which this evaluation reproduces: validation MAE 0.00055, RMSE 0.00087, max 0.0214. Its 12 epochs took 1,838 s on a shared machine: 49 to 65 s each for eight of them, 218 to 673 s for epochs 6 to 9.",
+    "The training data, runs/train.bin, is not in the repository. models/training/train.manifest.json is its manifest, the one that inputs.training_data names: `senet gen-data` with the settings recorded there makes the file byte for byte (checked by SHA-256 against the file the network was trained on)."
+  ],
+  "files": [
+    {
+      "name": "senet_net.bin",
+      "bytes": 806956,
+      "sha256": "60d89d81bce0835f02f0f1fed7ba057fae9a26b6cbe862259e8b62d95b9d0a5e"
+    }
+  ]
+}

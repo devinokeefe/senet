@@ -1,0 +1,5 @@
+# Build for the CPU of the machine that compiles. The binaries may not run on other CPUs,
+# and say so when started on one that lacks an instruction they use.
+# Use with `cargo build --release --config .cargo/native.toml` (see config.toml).
+[build]
+rustflags = ["-C", "target-cpu=native"]

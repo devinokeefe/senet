@@ -1,0 +1,42 @@
+{
+  "manifest": 1,
+  "kind": "training-data",
+  "format": "senet-records/1",
+  "rules": "kendall5",
+  "created_utc": "2026-10-04T14:42:07+00:00",
+  "created_by": {
+    "command": "senet gen-data --db db/kendall5 --games 1000000 --eps 0.2 --uniform 20000000 --seed 1 --out runs/train.bin",
+    "commit": null,
+    "engine": {
+      "cpu_features": [],
+      "optimized": true,
+      "target": "x86_64-windows",
+      "version": "0.1.0"
+    }
+  },
+  "settings": {
+    "eps": 0.2,
+    "games": 1000000,
+    "seed": 1,
+    "uniform": 20000000
+  },
+  "inputs": {
+    "database": {
+      "manifest_sha256": "251bbefe891c6475686360eb8613623ef7b3f8f4ceba2dc40d958f849533ee2f",
+      "path": "db/kendall5"
+    }
+  },
+  "contents": {
+    "from_games": 189476737,
+    "records": 209476737,
+    "uniform": 20000000
+  },
+  "notes": [],
+  "files": [
+    {
+      "name": "train.bin",
+      "bytes": 2513720844,
+      "sha256": "fe166cfe305e3f8f0f3e20bd34636d57988530679846c9d305ed6e0f8f9b0415"
+    }
+  ]
+}
