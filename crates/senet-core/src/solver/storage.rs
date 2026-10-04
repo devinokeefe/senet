@@ -129,7 +129,8 @@ impl LayerData {
         }
     }
 
-    /// Hints the CPU to fetch position `i` into cache ahead of `get`.
+    /// Hints the CPU to fetch position `i` into cache ahead of `get`. Only x86-64 has the
+    /// hint here; elsewhere this does nothing.
     #[inline(always)]
     pub(crate) fn prefetch(&self, i: u64) {
         #[cfg(target_arch = "x86_64")]
@@ -146,6 +147,8 @@ impl LayerData {
             // program state, whatever the address.
             unsafe { _mm_prefetch(p, _MM_HINT_T0) };
         }
+        #[cfg(not(target_arch = "x86_64"))]
+        let _ = i;
     }
 
     /// Stores a new value for position `i` of a layer being solved; returns the absolute

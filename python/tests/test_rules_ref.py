@@ -401,6 +401,10 @@ def test_moves_sorted_and_consistent() -> None:
 class ScriptedSticks(random.Random):
     """A random.Random whose four stick tosses per throw give a scripted throw value."""
 
+    def __new__(cls, throws: list[int]) -> ScriptedSticks:
+        # Before Python 3.11, Random.__new__ takes its argument as a seed, which a list cannot be.
+        return super().__new__(cls)
+
     def __init__(self, throws: list[int]) -> None:
         super().__init__(0)
         self.values: list[float] = []
