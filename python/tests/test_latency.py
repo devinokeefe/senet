@@ -60,6 +60,8 @@ def test_how_busy_the_machine_was() -> None:
     assert fraction is not None and 0 <= fraction <= 1
     assert latency.busy(None, after) is None and latency.busy(after, after) is None
     assert latency.busy((1.0, 10.0), (4.0, 14.0)) == pytest.approx(0.75)
+    # Two ticks, both busy, at 100 ticks a second: the differences are 0.02 to different roundings.
+    assert latency.busy((10.0, 70.05), (10.02, 70.07)) == 1.0
 
 
 def check_report(r: dict[str, Any], tmp_path: Path) -> str:

@@ -173,7 +173,8 @@ def busy(before: tuple[float, float] | None, after: tuple[float, float] | None) 
     """The fraction of the machine's CPU time that was busy between two `cpu_times`."""
     if before is None or after is None or after[1] <= before[1]:
         return None
-    return (after[0] - before[0]) / (after[1] - before[1])
+    # The two differences round separately, so a fully busy interval can come out just above 1.
+    return min(1.0, max(0.0, (after[0] - before[0]) / (after[1] - before[1])))
 
 
 def measure(db: Path | None, net: Path | None, n: int) -> dict[str, Any]:
