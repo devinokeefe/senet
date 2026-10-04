@@ -3,9 +3,9 @@
 // docs/API.md) for the portable single-file build: the distilled neural network (+ optional
 // 1-throw expectimax) replaces the solved database. Replies have the server's keys and errors
 // its messages (for a malformed body, only its "bad request: " prefix, and for an unknown
-// field the message without serde's position); /api/info adds `label` and `tagline` for the
-// page header. The random bot is seeded by `seed` (default 0, as on the server) but does not
-// reproduce the Rust RNG's choices. tools/check_local_api.mjs checks this against the server.
+// field the message without serde's position). The random bot is seeded by `seed` (default 0,
+// as on the server) but does not reproduce the Rust RNG's choices.
+// tools/check_local_api.mjs checks this against the server.
 (function () {
   const E = window.SenetEngine;
   let NET = null;
@@ -128,8 +128,6 @@
       start: { white: [1, 3, 5, 7, 9], black: [2, 4, 6, 8, 10], turn: "white" },
       throw_probs: Object.fromEntries(THROWS.map((t) => [t, E.THROW_PROBS[t]])),
       extra_throws: THROWS.filter((t) => E.EXTRA[t]),
-      label: "Portable AI: <b>distilled neural net</b>, running in your browser",
-      tagline: "The game of passing — against a neural net distilled from perfect play",
     };
   }
 

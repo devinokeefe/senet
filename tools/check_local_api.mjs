@@ -24,7 +24,6 @@ const SPEC = {
     ruleset: str, database: either(nul, { complete: bool, path: str }), network: bool, bots: [str],
     start: { white: [int], black: [int], turn: COLOR },
     throw_probs: { 1: num, 2: num, 3: num, 4: num, 5: num }, extra_throws: [int],
-    "label?": str, "tagline?": str, // portable build only: header text
   },
   analysis: { source: oneOf("perfect", "net", "heuristic"), white_win_prob: num },
   analysisWithThrow: {

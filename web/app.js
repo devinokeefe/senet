@@ -623,16 +623,9 @@ function onKeyDown(e) {
   if (!e.repeat && canHumanThrow()) doThrow();
 }
 
-// The header's tagline: the strongest opponent the engine offers.
-function tagline() {
-  if (INFO.tagline) return INFO.tagline;
-  const opponent = INFO.database?.complete ? "a perfect opponent"
-    : INFO.network ? "a neural net distilled from perfect play" : "a heuristic search";
-  return `The game of passing — against ${opponent}`;
-}
-
+// The header's line about the server's engine. The portable build has no server and says nothing.
 function engineStatus() {
-  if (INFO.label) return INFO.label;
+  if (window.SENET_LOCAL_API) return "";
   const db = INFO.database;
   if (db) {
     const kind = db.complete ? "perfect play (fully solved)" : "partially solved database";
@@ -690,7 +683,6 @@ async function init() {
     showOffline();
     return;
   }
-  $("tagline").textContent = tagline();
   $("engine-status").innerHTML = engineStatus();
   setUpPlayers();
   bindControls();

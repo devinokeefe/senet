@@ -56,7 +56,7 @@ try {
   check(page.evaluate("JSON.stringify(window.SENET_NET)") === JSON.stringify(readSnn1(netPath)),
     `the page embeds ${netPath} exactly`);
   check(await page.runUntil(() => page.evaluate("INFO") !== null), "the page starts");
-  check(page.$("engine-status").textContent.startsWith("Portable AI"), "the page's engine is its own");
+  check(page.$("engine-status").textContent === "", "the page's engine is its own: its header names no server's");
 
   const S = page.evaluate("S"); // the game state, a top-level const of app.js
   const other = (c) => (c === "white" ? "black" : "white");

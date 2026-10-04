@@ -121,8 +121,7 @@ types, and its failures are exceptions with the server's messages (for a malform
 only the `bad request: ` prefix is the same, and for an unknown field all but the position
 serde appends). Otherwise it differs from the server in:
 
-* `/api/info`: `"database": null`, `"network": true`, the bots `net:1`, `net` and `random`,
-  and two more keys for the page header, `label` and `tagline`.
+* `/api/info`: `"database": null`, `"network": true`, and the bots `net:1`, `net` and `random`.
 * `/api/analyze`: the network answers whatever `eval` asks for (`"source": "net"`), and
   values moves with a 1-throw search, as `net:1` does, where the server evaluates the
   positions they lead to.
